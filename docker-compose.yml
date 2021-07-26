@@ -1,0 +1,18 @@
+version: "2.0"
+services:
+  jd:
+    image: registry.cn-shenzhen.aliyuncs.com/jdhelloworld/jdhelloworld # 可以使用阿里云仓库的备用镜像
+    container_name: jd
+    hostname: jd
+    restart: always
+    tty: true
+    network_mode: bridge # 旁路由需换成 host
+    ports:
+      - 5678:5678 # 主机端口号可自定义
+    volumes:
+      - /opt/jd/scripts:/jd/scripts # 活动脚本的主机挂载目录
+      - /opt/jd/config:/jd/config # 配置文件的主机挂载目录
+      - /opt/jd/log:/jd/log # 日志文件的主机挂载目录
+    environment:
+      - ENABLE_HANGUP=true # 挂机功能
+      - ENABLE_WEB_PANEL=true # 控制面板功能
